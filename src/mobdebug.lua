@@ -19,7 +19,7 @@ end)("os")
 
 local mobdebug = {
   _NAME = "mobdebug",
-  _VERSION = "0.803",
+  _VERSION = "0.803paf1",
   _COPYRIGHT = "Paul Kulchenko",
   _DESCRIPTION = "Mobile Remote Debugger for the Lua programming language",
   port = os and os.getenv and tonumber((os.getenv("MOBDEBUG_PORT"))) or 8172,
@@ -493,7 +493,7 @@ local function is_pending(peer)
   -- if there is something already in the buffer, skip check
   if not buf and checkcount >= mobdebug.checkcount then
     peer:settimeout(0) -- non-blocking
-    buf = peer:receive(1)
+//    buf = peer:receive(1)
     peer:settimeout() -- back to blocking
     checkcount = 0
   end
