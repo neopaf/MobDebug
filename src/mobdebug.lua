@@ -497,7 +497,7 @@ local function is_pending(peer)
   -- if there is something already in the buffer, skip check
   if not buf and checkcount >= mobdebug.checkcount then
     peer:settimeout(0) -- non-blocking
-//    buf = peer:receive(1)
+--paf   buf = peer:receive(1)
     peer:settimeout() -- back to blocking
     checkcount = 0
   end
