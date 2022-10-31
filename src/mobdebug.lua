@@ -368,7 +368,7 @@ end
 
 local function has_breakpoint(file, line)
   return breakpoints[line]
-     breakpoints[line][get_file_name(iscasepreserving and string.lower(file) or file)]
+     and breakpoints[line][get_file_name(iscasepreserving and string.lower(file) or file)]
 end
 
 local function restore_vars(vars)
