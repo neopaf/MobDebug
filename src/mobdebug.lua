@@ -281,6 +281,10 @@ mobdebug.dump = serpent.dump
 mobdebug.linemap = nil
 mobdebug.loadstring = loadstring
 
+local function get_file_name(url)
+  return url:match("^.+[\\/](.+)$") or url
+end
+
 local function removebasedir(path, basedir)
   if iscasepreserving then
     -- check if the lowercased path matches the basedir
@@ -352,19 +356,19 @@ local function set_breakpoint(file, line)
   if file == '-' and lastfile then file = lastfile
   elseif iscasepreserving then file = string.lower(file) end
   if not breakpoints[line] then breakpoints[line] = {} end
-  breakpoints[line][file] = true
+  breakpoints[line][get_file_name(file)] = true
 end
 
 local function remove_breakpoint(file, line)
   if file == '-' and lastfile then file = lastfile
   elseif file == '*' and line == 0 then breakpoints = {}
   elseif iscasepreserving then file = string.lower(file) end
-  if breakpoints[line] then breakpoints[line][file] = nil end
+  if breakpoints[line] then breakpoints[line][get_file_name(file)] = nil end
 end
 
 local function has_breakpoint(file, line)
   return breakpoints[line]
-     and breakpoints[line][iscasepreserving and string.lower(file) or file]
+     breakpoints[line][get_file_name(iscasepreserving and string.lower(file) or file)]
 end
 
 local function restore_vars(vars)
